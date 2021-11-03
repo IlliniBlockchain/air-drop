@@ -22,7 +22,7 @@ const main = async () => {
 	console.log("Signer account:", account);
 
 	// contract
-	const contractAddress = "0x05B84a61F20624fB16F7a001a9d167eeB7649882";
+	const contractAddress = "0x9C5e3fC0F0430eB449e5cc529257B47C9E2066A0";
 	// const abi = [
   //   "constructor(address originalApproved)",
   //   "function getApproved(address _addr) public view returns (bool)",
@@ -30,104 +30,7 @@ const main = async () => {
   //   "function getBalance() public view returns (uint)",
   //   "function airDrop(address payable[] memory _addrs) public payable",
 	// ];
-	const abi = [
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "originalApproved",
-					"type": "address"
-				}
-			],
-			"stateMutability": "nonpayable",
-			"type": "constructor"
-		},
-		{
-			"stateMutability": "payable",
-			"type": "fallback"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"name": "ApprovedAddresses",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address payable[]",
-					"name": "_addrs",
-					"type": "address[]"
-				}
-			],
-			"name": "airDrop",
-			"outputs": [],
-			"stateMutability": "payable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_addr",
-					"type": "address"
-				}
-			],
-			"name": "getApproved",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "getBalance",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "_addr",
-					"type": "address"
-				}
-			],
-			"name": "setApproved",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"stateMutability": "payable",
-			"type": "receive"
-		}
-	];
+	const abi = [{"inputs":[{"internalType":"address payable[]","name":"_addrs","type":"address[]"}],"name":"airDrop","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address payable[]","name":"_addrs","type":"address[]"},{"internalType":"uint256[]","name":"_amnts","type":"uint256[]"}],"name":"airDropAmounts","outputs":[],"stateMutability":"payable","type":"function"}]
 	const contract = new ethers.Contract(contractAddress, abi, provider);
 	const contract_rw = contract.connect(signer);
 	// const contract_rw = new ethers.Contract(contractAddress, abi, signer);
