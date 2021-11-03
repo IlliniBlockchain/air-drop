@@ -6,6 +6,12 @@ Basic airdrop utility function to send testnet eth to people during events.
 Deployed airdrop.sol through Remix so there's no hardhat environment.
 
 ### How to use this
+#### Etherscan
+[See the contract here.](https://rinkeby.etherscan.io/address/0x9C5e3fC0F0430eB449e5cc529257B47C9E2066A0#code)
+Note: address input should be in the form `["addr1", "addr2"]`, and amount input should be in the form
+`[number1,number2]`, with no spaces and where number1 and number2's units are in wei.
+
+#### Locally
 Create a `.env` file with the following keys:
 - PRIVATE_KEY
 - PUBLIC_KEY
