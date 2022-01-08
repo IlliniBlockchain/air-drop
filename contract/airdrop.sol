@@ -8,31 +8,25 @@ pragma solidity >=0.7.0 <0.9.0;
  */
 contract AirDrop {
     
-    mapping (address => bool) public ApprovedAddresses;
-    
-    constructor(address originalApproved) {
-        setApproved(originalApproved);
-    }
-    
-    function getApproved(address _addr) public view returns (bool) {
-        return ApprovedAddresses[_addr];
-    }
-
-    function setApproved(address _addr) public {
-        ApprovedAddresses[_addr] = true;
-    }
-    
-    // Allow depositing eth
-    receive() external payable {}
-    fallback() external payable {}
-    
-    function getBalance() public view returns (uint) {
-        return address(this).balance;
+    // Distrbute eth in certain amounts to a set of addresses
+    function airDropAmounts(address payable[] memory _addrs, uint[] memory _amnts) public payable {
+        require(_addrs.length == _amnts.length);
+        uint n = _addrs.length;
+        uint totalAmnts = 0;
+        for (uint i = 0; i < n; i++) {
+            totalAmnts += _amnts[i];
+        }
+        // Ensure no leftover eth
+        require(msg.value == totalAmnts);
+        uint remainEth = totalAmnts;
+        for (uint i = 0; i < n; i++) {
+            _addrs[i].transfer(_amnts[i]);
+            remainEth -= _amnts[i];
+        }
     }
 
-    // distribute eth to set of addresses
+    // Distribute eth equally to a set of addresses
     function airDrop(address payable[] memory _addrs) public payable {
-        require(ApprovedAddresses[msg.sender]); // only ApprovedAddresses can call this function
         uint nAddrs = _addrs.length;
         uint totalEth = msg.value;
         uint eachEth = totalEth / nAddrs;
@@ -43,4 +37,5 @@ contract AirDrop {
         }
         _addrs[nAddrs - 1].transfer(remainEth);
     }
+    
 }
